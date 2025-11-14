@@ -4,29 +4,69 @@ import { useState } from "react"
 import LoginPage from "@/components/pages/login-page"
 import SignupPage from "@/components/pages/signup-page"
 import DashboardPage from "@/components/pages/dashboard-page"
+import { SmartPlanningPage } from "@/components/smart-planning-page"
+import { ProfileSetupModal } from "@/components/profile-setup-modal"
 import { Mascot } from "@/components/mascot"
 
-type PageState = "home" | "login" | "signup" | "dashboard"
+type PageState = "home" | "login" | "signup" | "dashboard" | "planning"
+
+interface UserProfile {
+  isComplete: boolean
+  data?: any
+}
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState<PageState>("home")
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userName, setUserName] = useState("")
+  const [showProfileModal, setShowProfileModal] = useState(false)
+  const [userProfile, setUserProfile] = useState<UserProfile>({ isComplete: false })
+  const [isNewUser, setIsNewUser] = useState(false)
 
   const handleLogin = (name: string) => {
     setUserName(name)
     setIsLoggedIn(true)
-    setCurrentPage("dashboard")
+    // For demo purposes, we'll assume existing users have complete profiles
+    setUserProfile({ isComplete: true })
+    setCurrentPage("planning")
+  }
+
+  const handleSignup = (name: string) => {
+    setUserName(name)
+    setIsLoggedIn(true)
+    setIsNewUser(true)
+    setShowProfileModal(true)
+    setCurrentPage("planning")
+  }
+
+  const handleProfileComplete = (profileData: any) => {
+    setUserProfile({ isComplete: true, data: profileData })
+    setShowProfileModal(false)
   }
 
   const handleLogout = () => {
     setIsLoggedIn(false)
     setUserName("")
+    setUserProfile({ isComplete: false })
+    setIsNewUser(false)
     setCurrentPage("home")
   }
 
   if (isLoggedIn) {
-    return <DashboardPage userName={userName} onLogout={handleLogout} />
+    return (
+      <>
+        <ProfileSetupModal
+          isOpen={showProfileModal && isNewUser}
+          onClose={() => setShowProfileModal(false)}
+          onComplete={handleProfileComplete}
+        />
+        {currentPage === "planning" ? (
+          <SmartPlanningPage userName={userName} />
+        ) : (
+          <DashboardPage userName={userName} onLogout={handleLogout} userProfile={userProfile} />
+        )}
+      </>
+    )
   }
 
   if (currentPage === "login") {
@@ -34,7 +74,7 @@ export default function Home() {
   }
 
   if (currentPage === "signup") {
-    return <SignupPage onSignup={handleLogin} onBackHome={() => setCurrentPage("home")} />
+    return <SignupPage onSignup={handleSignup} onBackHome={() => setCurrentPage("home")} />
   }
 
   return (

@@ -1,18 +1,24 @@
 "use client"
 
 import { useState } from "react"
-import { LogOut, Menu, X } from "lucide-react"
+import { LogOut, Menu, X, AlertCircle } from 'lucide-react'
 import { Mascot } from "@/components/mascot"
+
+interface UserProfile {
+  isComplete: boolean
+}
 
 interface DashboardPageProps {
   userName: string
   onLogout: () => void
+  userProfile: UserProfile
 }
 
-export default function DashboardPage({ userName, onLogout }: DashboardPageProps) {
+export default function DashboardPage({ userName, onLogout, userProfile }: DashboardPageProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [quickStudyType, setQuickStudyType] = useState<"pdf" | "video" | null>(null)
+  const [showProfileWarning, setShowProfileWarning] = useState(false)
 
   const categories = [
     { id: "questions", label: "Questões", icon: "❓", color: "bg-orange-400" },
@@ -21,10 +27,40 @@ export default function DashboardPage({ userName, onLogout }: DashboardPageProps
     { id: "simulations", label: "Simulados", icon: "✅", color: "bg-green-500" },
   ]
 
+  const handleCategoryClick = (categoryId: string) => {
+    if (!userProfile.isComplete) {
+      setShowProfileWarning(true)
+      return
+    }
+    setActiveCategory(categoryId)
+  }
+
   return (
-    <div className="min-h-screen bg-gray-200">
+    <div className="min-h-screen bg-gray-200 pb-24">
+      {/* Profile Warning Modal */}
+      {showProfileWarning && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-sm shadow-xl">
+            <div className="flex items-center gap-3 mb-4">
+              <AlertCircle className="text-yellow-500" size={24} />
+              <h3 className="text-xl font-bold text-gray-800">Complete seu perfil</h3>
+            </div>
+            <p className="text-gray-600 mb-6">
+              Para acessar todas as funcionalidades, complete sua configuração de perfil. Isso nos ajuda a personalizar
+              sua experiência de aprendizado.
+            </p>
+            <button
+              onClick={() => setShowProfileWarning(false)}
+              className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors"
+            >
+              Ir para Perfil
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Header Navigation */}
-      <header className="bg-gray-200 border-b border-gray-300 p-4">
+      <header className="bg-gray-200 border-b border-gray-300 p-4 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -48,7 +84,7 @@ export default function DashboardPage({ userName, onLogout }: DashboardPageProps
                 Estudo Rápido
               </a>
               <a href="#" className="text-secondary font-semibold hover:underline">
-                Fazer Login
+                Perfil
               </a>
             </nav>
 
@@ -74,7 +110,7 @@ export default function DashboardPage({ userName, onLogout }: DashboardPageProps
                 <button
                   key={category.id}
                   onClick={() => {
-                    setActiveCategory(category.id)
+                    handleCategoryClick(category.id)
                     setMobileMenuOpen(false)
                   }}
                   className={`w-full py-3 px-4 rounded-full font-bold text-white transition-all ${
@@ -91,7 +127,6 @@ export default function DashboardPage({ userName, onLogout }: DashboardPageProps
 
           {/* Right Content Area */}
           <div className="lg:col-span-2">
-            {/* Welcome Card */}
             {!activeCategory && (
               <div className="bg-white rounded-lg p-8 shadow-sm border border-gray-300 mb-6">
                 <div className="flex justify-between items-start">
