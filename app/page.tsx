@@ -1,117 +1,134 @@
-"use client"
+import { Download, Moon } from "lucide-react"
+import { Button } from "../components/ui/button"
+import Image from "next/image"
 
-import { useState } from "react"
-import LoginPage from "@/components/pages/login-page"
-import SignupPage from "@/components/pages/signup-page"
-import DashboardPage from "@/components/pages/dashboard-page"
-import { Mascot } from "@/components/mascot"
-
-type PageState = "home" | "login" | "signup" | "dashboard"
-
-export default function Home() {
-  const [currentPage, setCurrentPage] = useState<PageState>("home")
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userName, setUserName] = useState("")
-
-  const handleLogin = (name: string) => {
-    setUserName(name)
-    setIsLoggedIn(true)
-    setCurrentPage("dashboard")
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false)
-    setUserName("")
-    setCurrentPage("home")
-  }
-
-  if (isLoggedIn) {
-    return <DashboardPage userName={userName} onLogout={handleLogout} />
-  }
-
-  if (currentPage === "login") {
-    return <LoginPage onLogin={handleLogin} onBackHome={() => setCurrentPage("home")} />
-  }
-
-  if (currentPage === "signup") {
-    return <SignupPage onSignup={handleLogin} onBackHome={() => setCurrentPage("home")} />
-  }
-
+export default function MinutinLandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-amber-50 to-orange-50 flex items-center justify-center px-4">
-      <div className="max-w-5xl w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left side - Logo and Icons */}
-          <div className="text-center md:text-left">
-            {/* Icons */}
-            <div className="flex justify-center md:justify-start gap-4 md:gap-8 mb-8 scale-75 md:scale-100">
-              {/* Brain Icon */}
-              <svg className="w-24 h-24 md:w-32 md:h-32" viewBox="0 0 200 200" fill="none">
-                <circle cx="100" cy="100" r="90" fill="#FF8C42" />
-                <path d="M60 80 Q60 60 80 60 Q90 50 100 60 Q110 50 120 60 Q140 60 140 80" fill="#FFB088" />
-                <path d="M65 90 Q65 80 75 80 Q82 75 90 80" fill="#FF8C42" />
-                <path d="M110 80 Q118 75 125 80 Q135 80 135 90" fill="#FF8C42" />
-                <path d="M70 110 Q70 100 85 100 Q95 95 100 100 Q105 95 115 100 Q130 100 130 110" fill="#FFB088" />
-                <circle cx="90" cy="85" r="5" fill="#FF8C42" opacity="0.6" />
-                <circle cx="110" cy="85" r="5" fill="#FF8C42" opacity="0.6" />
-                <circle cx="80" cy="105" r="5" fill="#FF8C42" opacity="0.6" />
-                <circle cx="120" cy="105" r="5" fill="#FF8C42" opacity="0.6" />
-              </svg>
+    <div className="min-h-screen bg-[#0f1419] text-white">
+      {/* Logo Header */}
+      <header className="absolute top-6 left-6 z-10">
+        <Image src="/images/image.png" alt="Minutin Logo" width={200} height={60} className="h-12 w-auto" />
+      </header>
 
-              {/* Book Icon */}
-              <svg className="w-24 h-24 md:w-32 md:h-32" viewBox="0 0 200 200" fill="none">
-                <rect x="30" y="40" width="70" height="100" rx="8" fill="none" stroke="#003B9E" strokeWidth="8" />
-                <rect x="100" y="40" width="70" height="100" rx="8" fill="none" stroke="#003B9E" strokeWidth="8" />
-                <line x1="100" y1="40" x2="100" y2="140" stroke="#003B9E" strokeWidth="8" />
-                <path d="M50 70 Q55 75 60 70" fill="none" stroke="#003B9E" strokeWidth="3" />
-                <path d="M50 90 Q55 95 60 90" fill="none" stroke="#003B9E" strokeWidth="3" />
-                <path d="M50 110 Q55 115 60 110" fill="none" stroke="#003B9E" strokeWidth="3" />
-                <path d="M140 70 Q145 75 150 70" fill="none" stroke="#003B9E" strokeWidth="3" />
-                <path d="M140 90 Q145 95 150 90" fill="none" stroke="#003B9E" strokeWidth="3" />
-                <path d="M140 110 Q145 115 150 110" fill="none" stroke="#003B9E" strokeWidth="3" />
-              </svg>
+      {/* Hero Section with Video */}
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-12">
+        <div className="text-center mb-8">
+          <p className="text-yellow-400 text-sm font-medium tracking-wider mb-4">SEU TEMPO VALE OURO</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-balance">
+            Estude na Correria: <span className="text-blue-400">Desenvolva seu conhecimento</span> em um{" "}
+            <span className="text-yellow-400">Minutin</span>
+          </h1>
+          <p className="text-gray-300 text-lg md:text-xl mb-6 max-w-3xl mx-auto">
+            Cansado de ter que escolher entre trabalhar e estudar? O Minutin transforma seus intervalos e deslocamentos
+            em poderosas sessões de aprendizado.
+          </p>
+        </div>
 
-              {/* Lightning Icon */}
-              <svg className="w-24 h-24 md:w-32 md:h-32" viewBox="0 0 200 200" fill="none">
-                <polygon
-                  points="120,40 80,120 100,120 70,170 140,80 110,80"
-                  fill="#FFC107"
-                  stroke="#FFC107"
-                  strokeWidth="2"
-                />
-              </svg>
+        {/* Video Section */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-center mb-6">Veja o Minutin em Ação!</h2>
+          <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+            {/* YouTube Embed Placeholder */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto mb-4 bg-red-600 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="text-gray-400 text-sm">Adicione seu vídeo do YouTube aqui</p>
+                <p className="text-gray-500 text-xs mt-2">Substitua este elemento com um iframe do YouTube</p>
+              </div>
             </div>
-
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-primary mb-12 tracking-wide">
-              ESTUDE
-              <br />
-              FÁCIL
-            </h1>
-
-            {/* Buttons */}
-            <div className="space-y-4 w-full max-w-sm">
-              <button
-                onClick={() => setCurrentPage("login")}
-                className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
-              >
-                Entrar
-              </button>
-              <button
-                onClick={() => setCurrentPage("signup")}
-                className="w-full bg-secondary hover:bg-orange-500 text-white font-bold py-3 px-6 rounded-full transition-colors"
-              >
-                Cadastrar
-              </button>
-            </div>
-          </div>
-
-          {/* Right side - Mascot */}
-          <div className="flex justify-center">
-            <Mascot className="w-64 h-auto" />
+            {/* 
+            Para adicionar um vídeo do YouTube, substitua o conteúdo acima com:
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/SEU_VIDEO_ID"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+            */}
           </div>
         </div>
-      </div>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-6 text-base">
+            <Download className="mr-2 h-5 w-5" />
+            BAIXAR GRÁTIS NA APP STORE
+          </Button>
+          <Button
+            size="lg"
+            variant="secondary"
+            className="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-6 text-base"
+          >
+            <Moon className="mr-2 h-5 w-5" />
+            BAIXAR NO GOOGLE PLAY
+          </Button>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-blue-400">
+          Por que o Minutin é perfeito para quem trabalha?
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {/* Feature 1 */}
+          <div className="bg-[#1a2332] rounded-lg p-8 text-center border border-gray-800 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20">
+            <div className="w-16 h-16 mx-auto mb-6 text-5xl">⏱️</div>
+            <h3 className="text-xl font-bold text-blue-400 mb-4">Conteúdo Planejado</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Conteúdo formatado, sequenciado e planejado para respeitar a sua rotina. Estudando por horas ou por 5
+              minutos, o Minutin te ajudará a aproveitar qualquer pausa.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="bg-[#1a2332] rounded-lg p-8 text-center border border-gray-800 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20">
+            <div className="w-16 h-16 mx-auto mb-6 text-5xl">🧠</div>
+            <h3 className="text-xl font-bold text-blue-400 mb-4">Fixação Garantida</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Fixação garantida de forma intuitiva. Acesse o conteúdo, consolide o aprendizado com verificações
+              inteligentes e tire suas dúvidas a qualquer momento com o apoio de nosso Chatbot exclusivo.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="bg-[#1a2332] rounded-lg p-8 text-center border border-gray-800 transition-all duration-300 hover:scale-105 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-400/20">
+            <div className="w-16 h-16 mx-auto mb-6 text-5xl">📱</div>
+            <h3 className="text-xl font-bold text-blue-400 mb-4">Seu Sucesso Mapeado</h3>
+            <p className="text-gray-300 leading-relaxed">
+              Sua jornada de aprendizado mapeada. Mantenha a motivação vendo o seu avanço! Garanta um histórico completo
+              e uma progressão clara, assegurando a satisfação com o seu desenvolvimento no app.
+            </p>
+          </div>
+        </div>
+
+        {/* Testimonial */}
+        <div className="bg-[#1a2332] rounded-lg p-8 border border-gray-800 max-w-4xl mx-auto">
+          <p className="text-gray-300 text-lg italic mb-6 text-center leading-relaxed">
+            "Antes eu não conseguia nem abrir o livro. Com o Minutin, uso meus 15 minutos de almoço para estudar. Já
+            aprendi mais em um mês do que no último ano!"
+          </p>
+          <p className="text-blue-400 text-center font-medium">
+            — Marina S., Analista de Sistemas e usuária do Minutin.
+          </p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-800 py-8">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <p className="text-gray-400 text-sm">
+            © 2025 Minutin - O App de Micro-Aprendizado.{" "}
+            <span className="text-yellow-400 font-semibold">Totalmente Gratuito.</span>
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }

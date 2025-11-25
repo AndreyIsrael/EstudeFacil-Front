@@ -1,0 +1,18 @@
+# Dependências do Node (Obrigatório)
+/node_modules
+
+# Artefatos de Build e Cache do Next.js (Obrigatório)
+/.next
+/out
+
+# Variáveis de Ambiente e Arquivos de Log
+.env
+.env.local
+npm-debug.log
+yarn-error.log
+
+# Arquivos de IDE (VS Code)
+.vscode/
+
+# Arquivos temporários
+*.log
