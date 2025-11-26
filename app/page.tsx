@@ -24,37 +24,18 @@ export default function MinutinLandingPage() {
           </p>
         </div>
 
-        {/* Video Section */}
+        {/* Video Section - CORRIGIDA */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-center mb-6">Veja o Minutin em Ação!</h2>
           <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
-            {/* YouTube Embed Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-red-600 rounded-2xl flex items-center justify-center">
-                  <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-           <iframe
+            {/* O iframe agora ocupa todo o espaço e é o único elemento de conteúdo */}
+            <iframe
               className="absolute inset-0 w-full h-full"
               src="https://www.youtube.com/embed/yvfxRokG7p4"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
-              </div>
-            </div>
-            {/* 
-            Para adicionar um vídeo do YouTube, substitua o conteúdo acima com:
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/SEU_VIDEO_ID"
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-            */}
           </div>
         </div>
 
