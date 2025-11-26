@@ -36,8 +36,13 @@ export default function MinutinLandingPage() {
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
-                <p className="text-gray-400 text-sm">Adicione seu vídeo do YouTube aqui</p>
-                <p className="text-gray-500 text-xs mt-2">Substitua este elemento com um iframe do YouTube</p>
+           <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/yvfxRokG7p4"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
               </div>
             </div>
             {/* 
