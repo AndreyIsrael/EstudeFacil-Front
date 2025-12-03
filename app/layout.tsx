@@ -7,11 +7,11 @@ import "./globals.css"
 const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
-// <CHANGE> Updated metadata for Minutin app
+// <CHANGE> Atualizando metadata para o Minutin
 export const metadata: Metadata = {
-  title: "Minutin - Aprenda em 5 Minutos | Micro-Aprendizado",
+  title: "Minutin - Estude na Correria",
   description:
-    "Estude na correria com o Minutin. Transforme seus intervalos em poderosas sessões de aprendizado com micro-aulas de 5 minutos.",
+    "Desenvolva seu conhecimento em um Minutin. Transforme seus intervalos e deslocamentos em poderosas sessões de aprendizado.",
   generator: "v0.app",
   icons: {
     icon: [

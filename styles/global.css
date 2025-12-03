@@ -3,18 +3,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Cores customizadas do Minutin */
 :root {
-  /* Paleta Minutin */
-  --minutin-blue-light: #2c86fe;
-  --minutin-blue-gray: #395881;
-  --minutin-blue: #186ad6;
-  --minutin-gray-blue: #354457;
-  --minutin-gray-dark: #282d33;
-  --minutin-gray-darker: #2c2f33;
-  --minutin-yellow: #ffc727;
-
-  /* Design tokens padrão */
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

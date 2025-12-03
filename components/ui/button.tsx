@@ -1,55 +1,38 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+import React from "react"
 
-// Define os estilos do botão usando a biblioteca cva (class-variance-authority)
-const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
+export type ButtonSize = "sm" | "md" | "lg"
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "outline"
 
-// Define as propriedades (props) que o componente Button aceita
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean // Permite que o botão seja renderizado como outro componente
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	size?: ButtonSize
+	variant?: ButtonVariant
+	className?: string
 }
 
-// O componente principal Button
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    // Se asChild for true, renderiza como Slot (do Radix), senão, como <button>
-    const Comp = asChild ? Slot : "button"
-    return (
-      <Comp
-        className={buttonVariants({ variant, size, className })}
-        ref={ref}
-        {...props}
-      />
-    )
-  }
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+	({ size = "md", variant = "primary", className = "", children, ...props }, ref) => {
+		const sizeClasses =
+			size === "lg" ? "px-8 py-6 text-base" : size === "sm" ? "px-3 py-1 text-sm" : "px-4 py-2"
+
+		const variantClasses =
+			variant === "secondary"
+				? "bg-gray-700 hover:bg-gray-600"
+				: variant === "ghost"
+				? "bg-transparent"
+				: variant === "outline"
+				? "border border-white bg-transparent text-white hover:bg-white/10"
+				: "bg-blue-600 hover:bg-blue-700"
+
+		const base = "inline-flex items-center justify-center rounded-md font-medium"
+
+		return (
+			<button ref={ref} className={`${base} ${sizeClasses} ${variantClasses} ${className}`} {...props}>
+				{children}
+			</button>
+		)
+	}
 )
+
 Button.displayName = "Button"
 
-// Exporta o componente e os estilos para uso em outras partes do código
-export { Button, buttonVariants }
+export default Button

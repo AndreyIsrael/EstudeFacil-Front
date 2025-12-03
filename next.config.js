@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   // Configuração para exportação estática
   output: 'export',
@@ -10,9 +12,9 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  // Importante: Adicione o basePath para o GitHub Pages
-  // Seu repositório é 'EstudeFacil-Front'
-  basePath: '/EstudeFacil-Front',
+  // Importante: Adicione o basePath apenas em produção (ex.: GitHub Pages)
+  // Em desenvolvimento isso causa 404 ao acessar '/' localmente.
+  basePath: isProd ? '/EstudeFacil-Front' : undefined,
 };
 
 module.exports = nextConfig;
