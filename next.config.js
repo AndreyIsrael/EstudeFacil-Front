@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const isProd = process.env.NODE_ENV === 'production'
+const isVercel = process.env.VERCEL === '1'
 
 const nextConfig = {
   // Configuração para exportação estática
@@ -13,8 +14,8 @@ const nextConfig = {
   },
 
   // Importante: Adicione o basePath apenas em produção (ex.: GitHub Pages)
-  // Em desenvolvimento isso causa 404 ao acessar '/' localmente.
-  basePath: isProd ? '/EstudeFacil-Front' : undefined,
+  // Não aplicar basePath quando rodando no Vercel — Vercel serve no domínio raiz.
+  basePath: isProd && !isVercel ? '/EstudeFacil-Front' : undefined,
 };
 
 module.exports = nextConfig;
